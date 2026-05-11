@@ -118,3 +118,6 @@ As co-author, Dave ensured correctness and genuine efficiency in every code exam
 </ul>
 
 </details>
+
+<h2>Errata</h2>
+* Page 221: There's a typo in the sentence "As applications grow, use cases rarely .m0lexist in isolation." It should be "As applications grow, use cases rarely exist in isolation." 
