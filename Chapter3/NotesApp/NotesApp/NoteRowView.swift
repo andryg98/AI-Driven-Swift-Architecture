@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NoteRowView: View {
     let note: Note
+    let onDelete: () -> Void
 
     var body: some View {
         HStack(spacing: 8) {
@@ -23,21 +24,24 @@ struct NoteRowView: View {
 
             Spacer()
 
-            // Delete button with proper accessibility
-            Button(action: {}) {
+            // Delete button; hidden from accessibility since its action is exposed
+            // as a named accessibility action on the row (see below) rather than
+            // as a separately focusable element, avoiding ambiguity about what
+            // double-tapping the row does.
+            Button(action: onDelete) {
                 Image(systemName: "trash")
                     .foregroundColor(.red)
                     .font(.system(size: 14))
             }
             .frame(width: 44, height: 44)  // Minimum 44x44 touch target
-            .accessibilityLabel("Delete \(note.title) note")
-            .accessibilityHint("Double tap to delete this note")
-            .accessibilityIdentifier("delete-note-\(note.id)")
+            .accessibilityHidden(true)
         }
         .padding(.vertical, 8)
         .accessibilityElement(children: .combine)
         .accessibilityLabel("\(note.title), \(priorityLabel(note.priority)) priority, \(note.content)")
-        .accessibilityHint("Double tap to view or edit note")
+        .accessibilityIdentifier("note-row-\(note.id)")
+        .accessibilityAction(.default) { }
+        .accessibilityAction(named: Text("Delete \(note.title) note"), onDelete)
     }
 
     private func priorityColor(_ priority: NotePriority) -> Color {

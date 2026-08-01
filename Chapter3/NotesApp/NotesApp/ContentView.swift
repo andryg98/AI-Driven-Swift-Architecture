@@ -51,8 +51,9 @@ struct ContentView: View {
                 // Notes list
                 List {
                     ForEach(notes, id: \.id) { note in
-                        NoteRowView(note: note)
-                            // ACCESSIBILITY ISSUE #2: No accessibility container
+                        NoteRowView(note: note) {
+                            notes.removeAll { $0.id == note.id }
+                        }
                     }
                 }
                 .listStyle(.plain)
