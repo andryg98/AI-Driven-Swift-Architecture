@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol BasketDomainModelProtocol {
+public protocol BasketDomainModelProtocol: Sendable {
     
     var id: UUID { get }
     

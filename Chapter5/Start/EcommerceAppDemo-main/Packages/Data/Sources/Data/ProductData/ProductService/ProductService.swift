@@ -1,23 +1,20 @@
 import Foundation
 
-import RxSwift
-
 import API
 import ProductAbstraction
- 
-public struct ProductService {
+
+public struct ProductService: Sendable {
 
     private let apiProvider: APIProviderProtocol
-    
+
     init() {
         self.apiProvider = APIProvider()
     }
 
-    func getProducts() -> Observable<[ProductDTO]> {
-        
-        apiProvider
-            .perform(ProductAPI.getProducts)
-            .map([ProductDTO].self)
+    func getProducts() async throws -> [ProductDTO] {
+
+        let response = try await apiProvider.perform(ProductAPI.getProducts)
+        return try response.decode([ProductDTO].self)
     }
 }
 

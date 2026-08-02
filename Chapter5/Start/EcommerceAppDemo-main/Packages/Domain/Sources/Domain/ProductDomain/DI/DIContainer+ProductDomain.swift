@@ -1,8 +1,6 @@
 import ProductAbstraction
 import DIAbstraction
 
-import RxSwift
-
 extension DIContainer {
 
     @MainActor

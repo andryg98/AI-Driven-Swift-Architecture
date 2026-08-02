@@ -1,39 +1,33 @@
 import Foundation
 
-import RxSwift
-import RxCocoa
+public protocol APIProviderProtocol: Sendable {
 
-public protocol APIProviderProtocol {
-    
-    func perform(_ request: APIRequestProtocol) -> Observable<APIResponse>
+    func perform(_ request: APIRequestProtocol) async throws -> APIResponse
 }
 
-public final class APIProvider: APIProviderProtocol {
-    
-        
+public final class APIProvider: APIProviderProtocol, @unchecked Sendable {
+
+
     private let urlSession: URLSession = .shared
-    
+
     public init() {}
-    
-    public func perform(_ request: APIRequestProtocol) -> Observable<APIResponse> {
-        
-        guard let request = try? createURLRequest(request) else {
-            return .empty()
+
+    public func perform(_ request: APIRequestProtocol) async throws -> APIResponse {
+
+        let urlRequest = try createURLRequest(request)
+
+        let (data, response) = try await urlSession.data(for: urlRequest)
+
+        guard let httpResponse = response as? HTTPURLResponse,
+              httpResponse.statusCode == 200
+        else {
+            throw APIError.invalidServerResponse
         }
-        
-        return urlSession.rx.response(request: request)
-            .map { request -> APIResponse in
-                
-                guard request.response.statusCode == 200
-                else {
-                    throw APIError.invalidServerResponse
-                }
-                
-                return APIResponse(
-                    statusCode: request.response.statusCode,
-                    data: request.data
-                )
-            }
+
+        return APIResponse(
+            statusCode: httpResponse.statusCode,
+            data: data
+        )
     }
     
     private func createURLRequest(_ request: APIRequestProtocol) throws -> URLRequest {

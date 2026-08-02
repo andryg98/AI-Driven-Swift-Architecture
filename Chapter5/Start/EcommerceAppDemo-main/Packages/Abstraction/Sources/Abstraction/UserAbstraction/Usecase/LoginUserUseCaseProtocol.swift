@@ -1,8 +1,6 @@
 import Foundation
 
-import RxSwift
+public protocol LoginUserUseCaseProtocol: Sendable {
 
-public protocol LoginUserUseCaseProtocol {
-    
-    func start(username: String) -> Observable<UserDomainModelProtocol>
+    func start(username: String) async throws -> UserDomainModelProtocol
 }

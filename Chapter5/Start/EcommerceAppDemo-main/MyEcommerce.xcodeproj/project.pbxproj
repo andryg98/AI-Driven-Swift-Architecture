@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3822D3332CC2E56F009374EF /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = 3822D3322CC2E56F009374EF /* Utils */; };
 		38461F612E59FB300048247E /* Analytics in Frameworks */ = {isa = PBXBuildFile; productRef = 38461F602E59FB300048247E /* Analytics */; };
 		38461F632E5A412F0048247E /* AnalyticsAbstraction in Frameworks */ = {isa = PBXBuildFile; productRef = 38461F622E5A412F0048247E /* AnalyticsAbstraction */; };
 		38461F652E5A44F60048247E /* AnalyticsDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 38461F642E5A44F60048247E /* AnalyticsDomain */; };
@@ -55,7 +54,6 @@
 		38E817B92CB852AC00086B2A /* Networking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Networking; sourceTree = "<group>"; };
 		38F43DDF2CBBFD2F002EACA3 /* LoginFeature */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = LoginFeature; sourceTree = "<group>"; };
 		38F690BA2E58E099009220B0 /* Analytics */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Analytics; sourceTree = "<group>"; };
-		38F690BB2E58E099009220B0 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
 		38F690BD2E58E0DD009220B0 /* Data */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Data; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +80,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3822D3332CC2E56F009374EF /* Utils in Frameworks */,
 				38461F612E59FB300048247E /* Analytics in Frameworks */,
 				38F690C32E58EFAE009220B0 /* UserData in Frameworks */,
 				38F43DE22CBC0ADE002EACA3 /* LoginFeature in Frameworks */,
@@ -176,7 +173,6 @@
 			children = (
 				38E817B92CB852AC00086B2A /* Networking */,
 				38F690BA2E58E099009220B0 /* Analytics */,
-				38F690BB2E58E099009220B0 /* Utils */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -212,7 +208,6 @@
 				38CD37A42CC2959F009D657A /* ProductDomain */,
 				38CD37A62CC2959F009D657A /* UserDomain */,
 				38CD37B42CC29665009D657A /* API */,
-				3822D3322CC2E56F009374EF /* Utils */,
 				38F690BE2E58E51D009220B0 /* BasketData */,
 				38F690C02E58EFAD009220B0 /* ProductData */,
 				38F690C22E58EFAE009220B0 /* UserData */,
@@ -308,8 +303,6 @@
 				38AB65EE2CBACF3B00E1D034 /* XCLocalSwiftPackageReference "Packages/Features/ProductsFeature" */,
 				38F43DE02CBC0ADE002EACA3 /* XCLocalSwiftPackageReference "Packages/Features/LoginFeature" */,
 				38958B272CC053DF00FECB60 /* XCLocalSwiftPackageReference "Packages/Features/BasketFeature" */,
-				3822D32D2CC2E18F009374EF /* XCRemoteSwiftPackageReference "RxSwift" */,
-				3822D3312CC2E56F009374EF /* XCLocalSwiftPackageReference "Packages/Utilities/Utils" */,
 				6CCE24FC2F0C1F60000A4345 /* XCLocalSwiftPackageReference "Packages/Data" */,
 			);
 			preferredProjectObjectVersion = 77;
@@ -677,10 +670,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		3822D3312CC2E56F009374EF /* XCLocalSwiftPackageReference "Packages/Utilities/Utils" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = Packages/Utilities/Utils;
-		};
 		38958B272CC053DF00FECB60 /* XCLocalSwiftPackageReference "Packages/Features/BasketFeature" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = Packages/Features/BasketFeature;
@@ -707,22 +696,7 @@
 		};
 /* End XCLocalSwiftPackageReference section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		3822D32D2CC2E18F009374EF /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.8.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
 /* Begin XCSwiftPackageProductDependency section */
-		3822D3322CC2E56F009374EF /* Utils */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = Utils;
-		};
 		38461F602E59FB300048247E /* Analytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Analytics;

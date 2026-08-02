@@ -7,7 +7,6 @@ let package = Package(
     platforms: [.iOS(.v15)],
     products: DomainProduct.allCases.map(\.product),
     dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.8.0")),
         .package(path: "../Abstraction")
     ],
     targets: DomainProduct.allCases.map(\.target) + DomainProduct.allCases.flatMap(\.testsTargets)
@@ -33,24 +32,6 @@ enum DomainProduct: String, CaseIterable {
 
     var product: Product { Product.Library.library(product: self) }
     
-}
-
-enum ExternalModule: String {
-        
-    case RxSwift
-
-    var dependency: Target.Dependency {
-        
-        return switch self {
-
-        case .RxSwift:
-            
-            .product(
-                name: "RxSwift",
-                package: "RxSwift"
-            )
-        }
-    }
 }
 
 enum AbstractionModule: String {
@@ -129,22 +110,19 @@ extension DomainProduct {
             
         case .BasketDomain:
             [
-                .external(.RxSwift),
                 .abstraction(.BasketAbstraction),
                 .abstraction(.DIAbstraction)
 
             ]
-            
+
         case .ProductDomain:
             [
-                .external(.RxSwift),
                 .abstraction(.ProductAbstraction),
                 .abstraction(.DIAbstraction)
             ]
-            
+
         case .UserDomain:
             [
-                .external(.RxSwift),
                 .abstraction(.UserAbstraction),
                 .abstraction(.DIAbstraction)
             ]
@@ -258,12 +236,6 @@ extension Target.Dependency {
     static func `internal`(_ product: DomainProduct) -> Target.Dependency {
 
         Target.Dependency(stringLiteral: product.rawValue)
-    }
-    
-    static func external(_ module: ExternalModule) -> Target.Dependency {
-
-        module.dependency
-        
     }
     
     static func abstraction(_ module: AbstractionModule) -> Target.Dependency {

@@ -8,7 +8,6 @@ let package = Package(
     products: AbstractionProduct.allCases.map(\.product),
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject", .upToNextMajor(from: "2.9.1")),
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.8.0")),
     ],
     targets: AbstractionProduct.allCases.map(\.target) + AbstractionProduct.allCases.flatMap(\.testsTargets)
 )
@@ -38,27 +37,18 @@ enum AbstractionProduct: String, CaseIterable {
 }
 
 enum ExternalModule: String {
-    
+
     case Swinject
-    
-    case RxSwift
 
     var dependency: Target.Dependency {
-        
+
         return switch self {
-            
+
         case .Swinject:
-            
+
             .product(
                 name: "Swinject",
                 package: "Swinject"
-            )
-            
-        case .RxSwift:
-            
-            .product(
-                name: "RxSwift",
-                package: "RxSwift"
             )
         }
     }
@@ -87,19 +77,13 @@ extension AbstractionProduct {
         return switch self {
             
         case .ProductAbstraction:
-            [
-                .external(.RxSwift)
-            ]
-            
+            []
+
         case .BasketAbstraction:
-            [
-                .external(.RxSwift)
-            ]
-            
+            []
+
         case .UserAbstraction:
-            [
-                .external(.RxSwift)
-            ]
+            []
 
         case .DIAbstraction:
             [

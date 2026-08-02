@@ -8,10 +8,7 @@ let package = Package(
     products: BasketFeature.allCases.map(\.product),
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject", .upToNextMajor(from: "2.9.1")),
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.8.0")),
-        .package(path: "../Abstraction"),
-        .package(path: "../Utilities/Utils"),
-
+        .package(path: "../../Abstraction")
     ],
     targets: BasketFeature.allCases.map(\.target) + BasketFeature.allCases.flatMap(\.testsTargets)
 )
@@ -33,63 +30,45 @@ enum BasketFeature: String, CaseIterable {
 }
 
 enum ExternalModule: String {
-    
+
     case Swinject
-    
-    case RxSwift
 
     var dependency: Target.Dependency {
-        
+
         return switch self {
-            
+
         case .Swinject:
-            
+
             .product(
                 name: "Swinject",
                 package: "Swinject"
-            )
-            
-        case .RxSwift:
-            
-            .product(
-                name: "RxSwift",
-                package: "RxSwift"
             )
         }
     }
 }
 
 enum AbstractionModule: String {
-    
+
     case BasketAbstraction
-    
+
+    case DIAbstraction
+
     var dependency: Target.Dependency {
-        
+
         return switch self {
-            
+
         case .BasketAbstraction:
-            
+
             .product(
                 name: "BasketAbstraction",
                 package: "Abstraction"
             )
-        }
-    }
-}
 
-enum Utility: String {
-    
-    case Utils
-    
-    var dependency: Target.Dependency {
-        
-        return switch self {
-            
-        case .Utils:
-            
+        case .DIAbstraction:
+
             .product(
-                name: "Utils",
-                package: "Utils"
+                name: "DIAbstraction",
+                package: "Abstraction"
             )
         }
     }
@@ -119,10 +98,9 @@ extension BasketFeature {
             
         case .BasketFeature:
             [
-                .external(.RxSwift),
                 .external(.Swinject),
                 .abstraction(.BasketAbstraction),
-                .utility(.Utils)
+                .abstraction(.DIAbstraction)
             ]
         }
             
@@ -224,13 +202,7 @@ extension Target.Dependency {
     static func abstraction(_ module: AbstractionModule) -> Target.Dependency {
 
         module.dependency
-        
-    }
-    
-    static func utility(_ module: Utility) -> Target.Dependency {
 
-        module.dependency
-        
     }
 }
 

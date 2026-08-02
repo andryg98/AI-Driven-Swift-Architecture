@@ -1,8 +1,6 @@
 import UserAbstraction
 import DIAbstraction
 
-import RxSwift
-
 extension DIContainer {
     
     @MainActor public static func registerLoginUserUseCase() {
