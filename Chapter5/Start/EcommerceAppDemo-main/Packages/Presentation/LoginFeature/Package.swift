@@ -4,14 +4,11 @@ import PackageDescription
 
 let package = Package(
     name: "LoginFeature",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: LoginFeature.allCases.map(\.product),
     dependencies: [
         .package(url: "https://github.com/Swinject/Swinject", .upToNextMajor(from: "2.9.1")),
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.8.0")),
-        .package(path: "../Abstraction"),
-        .package(path: "../Utilities/Utils")
-
+        .package(path: "../../Abstraction")
     ],
     targets: LoginFeature.allCases.map(\.target) + LoginFeature.allCases.flatMap(\.testsTargets)
 )
@@ -33,27 +30,18 @@ enum LoginFeature: String, CaseIterable {
 }
 
 enum ExternalModule: String {
-    
+
     case Swinject
-    
-    case RxSwift
 
     var dependency: Target.Dependency {
-        
+
         return switch self {
-            
+
         case .Swinject:
-            
+
             .product(
                 name: "Swinject",
                 package: "Swinject"
-            )
-            
-        case .RxSwift:
-            
-            .product(
-                name: "RxSwift",
-                package: "RxSwift"
             )
         }
     }
@@ -87,24 +75,6 @@ enum AbstractionModule: String {
     }
 }
 
-enum Utility: String {
-    
-    case Utils
-    
-    var dependency: Target.Dependency {
-        
-        return switch self {
-            
-        case .Utils:
-            
-            .product(
-                name: "Utils",
-                package: "Utils"
-            )
-        }
-    }
-}
-
 extension LoginFeature {
     
     var target: Target {
@@ -129,11 +99,9 @@ extension LoginFeature {
             
         case .LoginFeature:
             [
-                .external(.RxSwift),
                 .external(.Swinject),
                 .abstraction(.UserAbstraction),
-                .abstraction(.DIAbstraction),
-                .utility(.Utils)
+                .abstraction(.DIAbstraction)
             ]
         }
             
@@ -235,13 +203,7 @@ extension Target.Dependency {
     static func abstraction(_ module: AbstractionModule) -> Target.Dependency {
 
         module.dependency
-        
-    }
-    
-    static func utility(_ module: Utility) -> Target.Dependency {
 
-        module.dependency
-        
     }
 }
 

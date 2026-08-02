@@ -1,13 +1,11 @@
 import Foundation
 
-import RxSwift
-
 import API
- 
-public struct BasketService {
-    
+
+public struct BasketService: Sendable {
+
     private let apiProvider: APIProviderProtocol
-    
+
     init() {
         self.apiProvider = APIProvider()
     }
@@ -16,24 +14,21 @@ public struct BasketService {
         userID: UUID,
         productId: UUID,
         quantity: Int
-    ) -> Observable<Void> {
-        
-        apiProvider
-            .perform(
-                BasketAPI.addProduct(
-                    userID: userID,
-                    productId: productId,
-                    quantity: quantity
-                )
+    ) async throws {
+
+        _ = try await apiProvider.perform(
+            BasketAPI.addProduct(
+                userID: userID,
+                productId: productId,
+                quantity: quantity
             )
-            .map { _ in () }
+        )
     }
-    
-    func getBasket(userID: UUID) -> Observable<[BasketItemDTO]> {
-        
-        apiProvider
-            .perform(BasketAPI.getBasket(userID: userID))
-            .map([BasketItemDTO].self)
+
+    func getBasket(userID: UUID) async throws -> [BasketItemDTO] {
+
+        let response = try await apiProvider.perform(BasketAPI.getBasket(userID: userID))
+        return try response.decode([BasketItemDTO].self)
     }
 }
 

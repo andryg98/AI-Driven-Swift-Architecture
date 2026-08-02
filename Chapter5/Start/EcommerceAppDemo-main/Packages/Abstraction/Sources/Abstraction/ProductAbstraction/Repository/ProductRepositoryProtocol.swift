@@ -1,8 +1,6 @@
 import Foundation
 
-import RxSwift
+public protocol ProductRepositoryProtocol: Sendable {
 
-public protocol ProductRepositoryProtocol {
-    
-    func fetchAll() -> Observable<[ProductDomainModelProtocol]>
+    func fetchAll() async throws -> [ProductDomainModelProtocol]
 }

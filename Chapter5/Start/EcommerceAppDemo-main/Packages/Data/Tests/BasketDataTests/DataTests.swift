@@ -1,5 +1,5 @@
 import XCTest
-@testable import Data
+@testable import BasketData
 
 final class DataTests: XCTestCase {
     func testExample() throws {

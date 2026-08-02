@@ -1,8 +1,6 @@
 import Foundation
 
-import RxSwift
+public protocol GetBasketUseCaseProtocol: Sendable {
 
-public protocol GetBasketUseCaseProtocol {
-    
-    func start(userID: UUID) -> Observable<[BasketDomainModelProtocol]>
+    func start(userID: UUID) async throws -> [BasketDomainModelProtocol]
 }

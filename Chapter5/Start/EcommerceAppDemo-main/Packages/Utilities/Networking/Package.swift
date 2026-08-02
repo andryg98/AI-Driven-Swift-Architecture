@@ -4,11 +4,9 @@ import PackageDescription
 
 let package = Package(
     name: "Networking",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: NetworkingProduct.allCases.map(\.product),
-    dependencies: [
-        .package(url: "https://github.com/ReactiveX/RxSwift.git", .upToNextMajor(from: "6.8.0")),
-    ],
+    dependencies: [],
     targets: NetworkingProduct.allCases.map(\.target) + NetworkingProduct.allCases.flatMap(\.testsTargets)
 )
 
@@ -26,33 +24,6 @@ enum NetworkingProduct: String, CaseIterable {
 
     var product: Product { Product.Library.library(product: self) }
     
-}
-
-enum ExternalModule: String {
-        
-    case RxSwift
-    
-    case RxCocoa
-
-    var dependency: Target.Dependency {
-        
-        return switch self {
-
-        case .RxSwift:
-            
-            .product(
-                name: "RxSwift",
-                package: "RxSwift"
-            )
-            
-        case .RxCocoa:
-            
-                .product(
-                    name: "RxCocoa",
-                    package: "RxSwift"
-                )
-        }
-    }
 }
 
 extension NetworkingProduct {
@@ -76,15 +47,11 @@ extension NetworkingProduct {
     
     var dependencies: [Target.Dependency] {
         return switch self {
-            
+
         case .API:
-            [
-                .external(.RxSwift),
-                .external(.RxCocoa)
-                
-            ]
+            []
         }
-            
+
     }
     
     var testsDependencies: [Target.Dependency] {
@@ -172,12 +139,6 @@ extension Target.Dependency {
     static func `internal`(_ product: NetworkingProduct) -> Target.Dependency {
 
         Target.Dependency(stringLiteral: product.rawValue)
-    }
-    
-    static func external(_ module: ExternalModule) -> Target.Dependency {
-
-        module.dependency
-        
     }
 }
 

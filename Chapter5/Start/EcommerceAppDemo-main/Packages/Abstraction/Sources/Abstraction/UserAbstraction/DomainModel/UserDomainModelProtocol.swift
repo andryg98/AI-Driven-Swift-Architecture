@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol UserDomainModelProtocol {
+public protocol UserDomainModelProtocol: Sendable {
     
     var id: UUID { get }
     

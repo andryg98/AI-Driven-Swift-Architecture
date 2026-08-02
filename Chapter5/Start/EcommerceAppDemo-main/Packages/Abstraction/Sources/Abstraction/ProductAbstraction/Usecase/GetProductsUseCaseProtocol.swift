@@ -1,8 +1,6 @@
 import Foundation
 
-import RxSwift
+public protocol GetProductsUseCaseProtocol: Sendable {
 
-public protocol GetProductsUseCaseProtocol {
-        
-    func start() -> Observable<[ProductDomainModelProtocol]>
+    func start() async throws -> [ProductDomainModelProtocol]
 }

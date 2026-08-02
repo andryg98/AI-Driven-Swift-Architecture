@@ -17,13 +17,20 @@ public final class APIResponse {
 }
 
 extension APIResponse {
-    
+
     func parse<T: Decodable>(_ type: T.Type) throws -> T {
-        
+
         let jsonDecoder = JSONDecoder()
-        
+
         guard let decoded = try? jsonDecoder.decode(type.self, from: data) else { throw APIError.decodingError }
-        
+
         return decoded
+    }
+}
+
+public extension APIResponse {
+
+    func decode<T: Decodable>(_ type: T.Type) throws -> T {
+        try parse(type)
     }
 }

@@ -1,8 +1,6 @@
 import DIAbstraction
 import BasketAbstraction
 
-import RxSwift
-
 extension DIContainer {
 
     @MainActor

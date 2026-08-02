@@ -1,8 +1,6 @@
 import Foundation
 
-import RxSwift
+public protocol UserRepositoryProtocol: Sendable {
 
-public protocol UserRepositoryProtocol {
-    
-    func addUser(username: String) -> Observable<UserDomainModelProtocol>
+    func addUser(username: String) async throws -> UserDomainModelProtocol
 }
